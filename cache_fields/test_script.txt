@@ -1,0 +1,10 @@
+from cache_fields.models import *
+
+package = Package.objects.get()
+package
+package.status = Status.objects.get(id=2)
+package.status
+PackageStatusHistory.objects.filter(package_id=1)
+package.save()
+package.status
+PackageStatusHistory.objects.filter(package_id=1)

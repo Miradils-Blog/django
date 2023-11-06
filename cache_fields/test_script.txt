@@ -1,10 +1,10 @@
 from cache_fields.models import *
-
 package = Package.objects.get()
 package
-package.status = Status.objects.get(id=2)
-package.status
+package.status_id
+package.cached_status_id
+package.status = Status.objects.get(id=4)
 PackageStatusHistory.objects.filter(package_id=1)
 package.save()
-package.status
+package.status_id
 PackageStatusHistory.objects.filter(package_id=1)

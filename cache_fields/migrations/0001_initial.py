@@ -19,6 +19,9 @@ def add_defaul_statuses(apps, schema_editor):
         ]
     )
 
+def add_a_package(apps, schema_editor):
+    Package = apps.get_model("cache_fields", "Package")
+    Package.objects.create(user_id=1,  shipment_cost=1.99, weight=0.05, status_id=1)
 
 class Migration(migrations.Migration):
 
@@ -65,4 +68,5 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.RunPython(code=add_defaul_statuses, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(code=add_a_package, reverse_code=migrations.RunPython.noop),
     ]

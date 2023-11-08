@@ -1,7 +1,6 @@
 from typing import Any
 
 from dirtyfields import DirtyFieldsMixin
-
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save, pre_save
@@ -39,13 +38,12 @@ class PackageStatusHistory(models.Model):
     def __str__(self) -> str:
         return f"{self.package_id}: {self.from_status_id} -> {self.to_status_id}"
 
-@receiver(pre_save, sender=Package)
+@receiver(post_save, sender=Package)
 def register_status_change(sender, instance: Package, **kwargs):
-    old_status_id = instance.cached_status_id  # Solution 3
-    # print(instance.get_dirty_fields())
-    # old_status = instance.get_dirty_fields().get("status", None)  # Solution 4
-    # old_status_id = old_status and old_status.id
-    
+    # old_status_id = instance.id and Package.objects.get(id=instance.id).status_id  # Solution 2
+    # old_status_id = instance.cached_status_id  # Solution 3
+    old_status_id = instance.get_dirty_fields(check_relationship=True).get("status", None)  # Solution 4
+
     if instance.status_id != old_status_id:
         # There is a status change
         PackageStatusHistory.objects.create(package_id=instance.id,

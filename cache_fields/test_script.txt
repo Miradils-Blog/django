@@ -3,8 +3,11 @@ package = Package.objects.get()
 package
 package.status_id
 package.cached_status_id
-package.status = Status.objects.get(id=4)
-PackageStatusHistory.objects.filter(package_id=1)
+# package.is_dirty(check_relationship=True)
+package.status_id = 3
+# package.is_dirty(check_relationship=True)
+# package.get_dirty_fields(check_relationship=True)
+PackageStatusHistory.objects.filter(package_id=package.id)
 package.save()
 package.status_id
-PackageStatusHistory.objects.filter(package_id=1)
+PackageStatusHistory.objects.filter(package_id=package.id)

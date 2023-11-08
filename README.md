@@ -3,7 +3,4 @@
 Some concepts explained in Django
 
 ## Notes
-
-Username: mmzeynalli
-Email: miradil.zeynalli@gmail.com
-Password: SuperPassword
+1. Create one user before using
